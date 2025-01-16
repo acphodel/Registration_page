@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Register</title>
+    <script>
+ document.addEventListener("DOMContentLoaded", function () {
+    const emailInput = document.getElementById("form3Example3");
+    const passwordInput = document.getElementById("form3Example4");
+    const confirmPasswordInput = document.getElementById("form3Example5");
+    const emailError = document.getElementById("email-error");
+
+    const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    function checkEmailExists(email) {
+        return fetch(`/check-email?email=${email}`)
+            .then(response => response.json())
+            .then(data => data.exists);
+    }
+
+    document.querySelector("form").addEventListener("submit", function (event) {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        checkEmailExists(email).then(emailExists => {
+            if (emailExists) {
+                emailInput.setCustomValidity("Email is already registered.");
+                emailError.textContent = "Email is already registered.";
+                emailError.style.color = "red";
+                event.preventDefault();
+            } else {
+                if (!passwordValidation.test(password)) {
+                    passwordInput.setCustomValidity("Password must be at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.");
+                    event.preventDefault();
+                } else if (password !== confirmPassword) {
+                    confirmPasswordInput.setCustomValidity("Passwords do not match.");
+                    event.preventDefault();
+                } else {
+                    passwordInput.setCustomValidity("");
+                    confirmPasswordInput.setCustomValidity("");
+                }
+            }
+        }).catch(err => {
+            console.error("Error checking email:", err);
+            event.preventDefault();
+        });
+    });
+
+    // Email existence check
+    emailInput.addEventListener("input", function () {
+        const email = emailInput.value;
+        const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailFormat.test(email)) {
+            emailInput.setCustomValidity("Invalid email format. The email should be in the format 'x@xx.xx'.");
+            emailError.textContent = "Invalid email format. The email should be in the format 'x@xx.xx'.";
+            emailError.style.color = "red";
+        } 
+        if (email) {
+            checkEmailExists(email).then(emailExists => {
+                if (emailExists) {
+                    emailInput.setCustomValidity("Email is already registered.");
+                    emailError.textContent = "Email is already registered.";
+                    emailError.style.color = "red";
+                } else {
+                    emailInput.setCustomValidity("");
+                    emailError.textContent = "";
+                }
+            }).catch(err => console.error("Error checking email:", err));
+        } else {
+            emailInput.setCustomValidity(""); // Reset custom error
+            emailError.textContent = "";
+        }
+    });
+
+    confirmPasswordInput.addEventListener("input", function () {
+        if (confirmPasswordInput.validity.valueMissing) {
+            confirmPasswordInput.setCustomValidity("Please confirm your password.");
+        } else if (confirmPasswordInput.value !== passwordInput.value) {
+            confirmPasswordInput.setCustomValidity("Passwords do not match.");
+        } else {
+            confirmPasswordInput.setCustomValidity("");
+        }
+    });
+});
+
+  </script>
+  
+  
+</head>
+<body>
+    <div class="container mt-4">
+        <section class="background-radial-gradient overflow-hidden">
+            <style>
+                .background-radial-gradient {
+                    background-color: hsl(218, 41%, 15%);
+                    background-image: radial-gradient(650px circle at 0% 0%,
+                        hsl(218, 41%, 35%) 15%,
+                        hsl(218, 41%, 30%) 35%,
+                        hsl(218, 41%, 20%) 75%,
+                        hsl(218, 41%, 19%) 80%,
+                        transparent 100%),
+                      radial-gradient(1250px circle at 100% 100%,
+                        hsl(218, 41%, 45%) 15%,
+                        hsl(218, 41%, 30%) 35%,
+                        hsl(218, 41%, 20%) 75%,
+                        hsl(218, 41%, 19%) 80%,
+                        transparent 100%);
+                }
+
+                .bg-glass {
+                    background-color: hsla(0, 0%, 100%, 0.9) !important;
+                    backdrop-filter: saturate(200%) blur(25px);
+                }
+            </style>
+
+            <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+                <div class="row gx-lg-5 align-items-center mb-5">
+                    <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                        <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                            Welcome to <br />
+                            <span style="color: hsl(218, 81%, 75%)">My App</span>
+                        </h1>
+                        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus, expedita iusto veniam atque, magni tempora mollitia
+                            dolorum consequatur nulla, neque debitis eos reprehenderit quasi ab ipsum nisi dolorem modi. Quos?
+                        </p>
+                    </div>
+
+                    <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                        <div class="card bg-glass">
+                            <div class="card-body px-4 py-5 px-md-5">
+                                <form action="/register" method="POST" onsubmit="return validatePassword(event)">
+                                    <h1 class="mb-3 h3">Register</h1>
+                                    <div class="col-md-12 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" name="name" id="form3Example2" class="form-control" required />
+                                            <label class="form-label" for="form3Example2">Full Name</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="email" name="email" id="form3Example3" class="form-control" required />
+                                        <label class="form-label" for="form3Example3">Email address</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" name="password" id="form3Example4" class="form-control" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" />
+                                        <label class="form-label" for="form3Example4">Password</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" name="confirmPassword" id="form3Example5" class="form-control" required />
+                                        <label class="form-label" for="form3Example5">Confirm Password</label>
+                                    </div>
+
+                                    <div id="error-message" class="text-danger mb-3"></div>
+
+                                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                                        Sign up
+                                    </button>
+
+                                    <div class="text-center">
+                                        <p>Already have an account? <a href="/login">Login</a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

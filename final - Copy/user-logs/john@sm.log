@@ -1,0 +1,6 @@
+Email: john@sm
+        Successful Logins: 1
+        Successful Times: ["2024-12-25T07:51:56.710Z"]
+        Unsuccessful Logins: 0
+        Unsuccessful Times: []
+        Last Activity: Serializing user: {"id":"1735113110182","name":"mane","email":"john@sm","password":"$2b$10$4fTDoHvEF9IU0xIJDAG62O3lYE5JYrEIhq1YgbhsGUG/tmNpK9nWe"}

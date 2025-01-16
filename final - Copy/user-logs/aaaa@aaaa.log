@@ -1,0 +1,6 @@
+Email: aaaa@aaaa
+        Successful Logins: 11
+        Successful Times: ["2024-12-24T18:23:50.230Z","2024-12-24T18:23:53.923Z","2024-12-24T18:28:31.440Z","2024-12-24T18:29:14.794Z","2024-12-24T18:29:23.224Z","2024-12-24T18:29:55.190Z","2024-12-24T18:30:30.155Z","2024-12-24T18:30:43.341Z","2024-12-24T18:31:00.341Z","2024-12-24T18:33:12.769Z","2024-12-24T19:12:55.046Z"]
+        Unsuccessful Logins: 0
+        Unsuccessful Times: []
+        Last Activity: Serializing user: {"id":"1735058335945","name":"aaaaaa","email":"aaaa@aaaa","password":"$2b$10$xCxTSTMhpLpnV4nh/e82TeAGk0E3/Ib.Abn17zr/xlhDYujMA2aBy"}

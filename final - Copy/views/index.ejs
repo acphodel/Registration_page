@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.98.0">
+    <title>Welcome to your account</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+      body {
+        background: url(https://cdn.leonardo.ai/users/39937ab5-7c9c-4e83-9c92-3c60ff103aaf/generations/4f0f2ee2-b16f-4687-b244-690e4e495811/Leonardo_Phoenix_09_Imagine_a_breathtaking_highresolution_4K_i_1.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .shape-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .shape {
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+      .triangle {
+        width: 0;
+        height: 0;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-bottom: 160px solid;
+        position: relative;
+        z-index: 2;
+      }
+      .square {
+        width: 150px;
+        height: 150px;
+        background-color: #7D4F50;
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+      }
+      .circle {
+        width: 150px;
+        height: 150px;
+        background-color: #BCC1BA;
+        border-radius: 50%;
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body class="d-flex h-100 text-center text-white bg-white">
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <h3 class="float-md-start mb-0 text-white">Cover</h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <form action="/logout?_method=DELETE" method="POST">
+              <button class="nav-link fw-bold py-1 px-0 btn p-3 btn-dark text-white" type="submit">Logout</button>
+            </form>
+          </nav>
+        </div>
+      </header>
+      <main class="px-3">
+        <h1 class="text-white">Hello <%= name %></h1>
+        <p class="lead text-white">Welcome to my App</p>
+        <p class="lead">
+          <a href="#" class="btn btn-lg btn-secondary fw-bold text-dark border-white bg-white">Learn more</a>
+        </p>
+        
+        <div class="shape-container">
+          <div id="shape" class="triangle"></div>
+        </div>
+        <p id="newresult" class="text-white"></p>
+        <button id="calculateBtn" class="btn btn-lg btn-secondary fw-bold text-dark border-white bg-white">Calculate Area</button>
+        
+        <script>
+          const shape = document.getElementById('shape');
+          const shapes = ['triangle', 'circle', 'square'];
+          let currentShapeIndex = 0;
+        
+          shape.addEventListener('click', () => {
+            shape.classList.remove(shapes[currentShapeIndex]);
+        
+            currentShapeIndex = (currentShapeIndex + 1) % shapes.length;
+        
+            shape.classList.add(shapes[currentShapeIndex]);
+          });
+        
+          document.getElementById('calculateBtn').addEventListener('click', () => {
+            let area;
+            const activeShape = shapes[currentShapeIndex];
+        
+            if (activeShape === 'circle') {
+              const radius = 75;
+              area = Math.PI * Math.pow(radius, 2);
+            } else if (activeShape === 'square') {
+              const side = 150;
+              area = Math.pow(side, 2);
+            } else if (activeShape === 'triangle') {
+              const base = 200;
+              const height = 160;
+              area = 0.5 * base * height;
+            }
+            document.getElementById('newresult').innerText = `Area of ${activeShape}: ${area.toFixed(2)}px²`;
+          });
+        </script>
+        
+        
+      </main>
+      <footer class="mt-auto text-dark-50"></footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

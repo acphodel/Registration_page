@@ -18,7 +18,7 @@ This project is a fully working user registration and authentication system buil
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/project-name.git
+   git clone https://github.com/acphodel/Registration_page
    ```
 
 2. Install dependencies:

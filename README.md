@@ -24,7 +24,7 @@ This project is a fully working user registration and authentication system buil
 2. Install dependencies:
    - Before running the server, you'll need to install `express` and other dependencies by running:
      ```bash
-     cd project-name
+     cd Registration_page
      npm install express
      ```
 
